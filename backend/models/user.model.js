@@ -1,3 +1,4 @@
+import bcryptjs from "bcryptjs";
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
@@ -27,6 +28,19 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+  const salt = await bcryptjs.genSalt(12);
+  this.password = await bcryptjs.hash(this.password, salt);
+  next();
+});
+
+userSchema.pre(/^find/, function (next) {
+  this.select("-__v");
+  this.sort("-createdAt");
+  next();
+});
 
 const User = mongoose.model("User", userSchema);
 

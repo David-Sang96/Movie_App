@@ -39,8 +39,24 @@ const signUpValidation = [
   validationResults,
 ];
 
+const logInValidation = [
+  body("email")
+    .trim()
+    .notEmpty()
+    .withMessage("Email is required")
+    .isEmail()
+    .withMessage("Must be a valid email address"),
+  body("password")
+    .trim()
+    .notEmpty()
+    .withMessage("Password is required")
+    .isLength({ min: 6 })
+    .withMessage("Password must be at least 6 characters"),
+  validationResults,
+];
+
 router.post("/sign-up", signUpValidation, signUp);
-router.post("/log-in", logIn);
+router.post("/log-in", logInValidation, logIn);
 router.post("/log-out", logOut);
 
 export default router;
