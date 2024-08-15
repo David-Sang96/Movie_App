@@ -1,19 +1,19 @@
 import express from "express";
 
-import {
-  getMovieDetails,
-  getMoviesByCategory,
-  getMovieTrailer,
-  getSimilarMovies,
-  getTrendingMovie,
-} from "../controllers/movie.controller.js";
-
 const router = express.Router();
 
-router.get("/trending", getTrendingMovie);
-router.get("/:id/trailers", getMovieTrailer);
-router.get("/:id/details", getMovieDetails);
-router.get("/:id/similar", getSimilarMovies);
-router.get("/:category", getMoviesByCategory);
+import {
+  getByCategoryResults,
+  getDetailsResult,
+  getSimilarResults,
+  getTrailerResults,
+  getTrendingResult,
+} from "../controllers/tmdbApi.controller.js";
+
+router.get("/trending", getTrendingResult("movie"));
+router.get("/:id/trailers", getTrailerResults("movie"));
+router.get("/:id/details", getDetailsResult("movie"));
+router.get("/:id/similar", getSimilarResults("movie"));
+router.get("/:category", getByCategoryResults("movie"));
 
 export default router;

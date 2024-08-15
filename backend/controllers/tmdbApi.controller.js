@@ -1,23 +1,23 @@
 import { fetchFromTMDB } from "../services/tmdb.service.js";
 
-export const getTrendingMovie = async (req, res) => {
+export const getTrendingResult = (type) => async (req, res) => {
   try {
     const data = await fetchFromTMDB(
-      "https://api.themoviedb.org/3/trending/movie/day?language=en-US"
+      `https://api.themoviedb.org/3/trending/${type}/day?language=en-US`
     );
-    const randomMovie =
+    const randomResult =
       data.results[Math.floor(Math.random() * data.results?.length)];
-    res.json({ success: true, content: randomMovie });
+    res.json({ success: true, content: randomResult });
   } catch (error) {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
 
-export const getMovieTrailer = async (req, res) => {
+export const getTrailerResults = (type) => async (req, res) => {
   try {
     const { id } = req.params;
     const data = await fetchFromTMDB(
-      `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`
+      `https://api.themoviedb.org/3/${type}/${id}/videos?language=en-US`
     );
 
     res.json({ success: true, trailers: data.results });
@@ -30,11 +30,11 @@ export const getMovieTrailer = async (req, res) => {
   }
 };
 
-export const getMovieDetails = async (req, res) => {
+export const getDetailsResult = (type) => async (req, res) => {
   try {
     const { id } = req.params;
     const data = await fetchFromTMDB(
-      `https://api.themoviedb.org/3/movie/${id}?language=en-US`
+      `https://api.themoviedb.org/3/${type}/${id}?language=en-US`
     );
 
     res.json({ success: true, content: data });
@@ -47,11 +47,11 @@ export const getMovieDetails = async (req, res) => {
   }
 };
 
-export const getSimilarMovies = async (req, res) => {
+export const getSimilarResults = (type) => async (req, res) => {
   try {
     const { id } = req.params;
     const data = await fetchFromTMDB(
-      `https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=1`
+      `https://api.themoviedb.org/3/${type}/${id}/similar?language=en-US&page=1`
     );
     res.json({ success: true, similar: data.results });
   } catch (error) {
@@ -59,11 +59,11 @@ export const getSimilarMovies = async (req, res) => {
   }
 };
 
-export const getMoviesByCategory = async (req, res) => {
+export const getByCategoryResults = (type) => async (req, res) => {
   try {
     const { category } = req.params;
     const data = await fetchFromTMDB(
-      `https://api.themoviedb.org/3/movie/${category}?language=en-US&page=1`
+      `https://api.themoviedb.org/3/${type}/${category}?language=en-US&page=1`
     );
     res.json({ success: true, content: data.results });
   } catch (error) {
