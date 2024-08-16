@@ -1,7 +1,13 @@
 import express from "express";
 import { body } from "express-validator";
 
-import { logIn, logOut, signUp } from "../controllers/auth.controller.js";
+import {
+  authCheck,
+  logIn,
+  logOut,
+  signUp,
+} from "../controllers/auth.controller.js";
+import protectedRoute from "../middleware/protectRoute.js";
 import User from "../models/user.model.js";
 import { validationResults } from "../ultis/validationResult.js";
 
@@ -58,5 +64,7 @@ const logInValidation = [
 router.post("/sign-up", signUpValidation, signUp);
 router.post("/log-in", logInValidation, logIn);
 router.post("/log-out", logOut);
+
+router.get("/auth-check", protectedRoute, authCheck);
 
 export default router;

@@ -1,10 +1,18 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
+
 import App from "../App";
 import HomePage from "../pages/home/HomePage";
 import LoginPage from "../pages/LoginPage";
 import SignUp from "../pages/SignUp";
+import { useAuthStore } from "../store/authUser";
 
 const Routers = () => {
+  const { user } = useAuthStore();
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -16,11 +24,11 @@ const Routers = () => {
         },
         {
           path: "/login",
-          element: <LoginPage />,
+          element: !user ? <LoginPage /> : <Navigate to={"/"} replace />,
         },
         {
           path: "/sign-up",
-          element: <SignUp />,
+          element: !user ? <SignUp /> : <Navigate to={"/"} replace />,
         },
       ],
     },

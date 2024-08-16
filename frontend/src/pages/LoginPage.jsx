@@ -1,14 +1,16 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuthStore } from "../store/authUser";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { logIn } = useAuthStore();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email, password);
+    logIn({ email, password });
   };
 
   return (
