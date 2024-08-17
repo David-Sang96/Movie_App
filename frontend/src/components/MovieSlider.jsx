@@ -9,7 +9,6 @@ import { SMALL_IMG_BASE_URL } from "../ultis/constants";
 /* eslint-disable react/prop-types */
 const MovieSlider = ({ category }) => {
   const [content, setContent] = useState([]);
-  const [showArrows, setShowArrows] = useState(false);
   const { contentType } = useContentStore();
   const sliderRef = useRef(null);
 
@@ -44,11 +43,7 @@ const MovieSlider = ({ category }) => {
   };
 
   return (
-    <div
-      className="relative bg-black px-5 text-white md:px-20"
-      onMouseEnter={() => setShowArrows(true)}
-      onMouseLeave={() => setShowArrows(false)}
-    >
+    <div className="group relative bg-black px-5 text-white md:px-20">
       <h2 className="mb-4 text-2xl font-bold">
         {formattedCategoryName} {formattedContentType}
       </h2>
@@ -59,36 +54,33 @@ const MovieSlider = ({ category }) => {
         {content.map((item) => (
           <Link
             to={`/watch/${item.id}`}
-            className="group min-w-[250px]"
+            className="min-w-[250px]"
             key={item.id}
           >
             <div className="overflow-hidden rounded-lg">
               <img
                 src={`${SMALL_IMG_BASE_URL}${item.backdrop_path}`}
                 alt="Movie Image"
-                className="transition-transform duration-300 ease-in-out group-hover:scale-125"
+                className="transition-all duration-300 ease-in-out hover:scale-125"
               />
             </div>
             <p className="mt-2 text-center">{item.title || item.name}</p>
           </Link>
         ))}
       </div>
-      {showArrows && (
-        <>
-          <button
-            className="absolute left-5 top-28 z-20 flex size-12 -translate-y-1/2 items-center justify-center rounded-full bg-black bg-opacity-50 text-white hover:bg-opacity-75 md:left-24"
-            onClick={scrollLeft}
-          >
-            <ChevronLeft size={24} />
-          </button>
-          <button
-            className="absolute right-5 top-28 z-20 flex size-12 -translate-y-1/2 items-center justify-center rounded-full bg-black bg-opacity-50 text-white hover:bg-opacity-75 md:right-24"
-            onClick={scrollRight}
-          >
-            <ChevronRight size={24} />
-          </button>
-        </>
-      )}
+
+      <button
+        className="ease-in-ou absolute left-5 top-24 rounded-full bg-black bg-opacity-50 p-3 opacity-0 transition-all duration-300 hover:bg-opacity-75 group-hover:opacity-100 md:left-24"
+        onClick={scrollLeft}
+      >
+        <ChevronLeft size={24} />
+      </button>
+      <button
+        className="ease-in-ou absolute right-5 top-24 rounded-full bg-black bg-opacity-50 p-3 opacity-0 transition-all duration-300 hover:bg-opacity-75 group-hover:opacity-100 md:right-24"
+        onClick={scrollRight}
+      >
+        <ChevronRight size={24} />
+      </button>
     </div>
   );
 };
