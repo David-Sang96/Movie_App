@@ -2,12 +2,19 @@ import { LogOut, Menu, Search, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/authUser.js";
+import { useContentStore } from "../store/content.js";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user, logOut } = useAuthStore();
+  const { setContentType } = useContentStore();
 
   const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev);
+
+  const mobileClickFunc = (type) => {
+    toggleMobileMenu();
+    setContentType(type);
+  };
 
   return (
     <header className="mx-auto flex h-20 max-w-6xl flex-wrap items-center justify-between p-4">
@@ -22,10 +29,18 @@ const Navbar = () => {
 
         {/* desktop navbar items */}
         <div className="hidden items-center gap-2 sm:flex">
-          <Link to={"/"} className="hover:underline">
+          <Link
+            to={"/"}
+            className="hover:underline"
+            onClick={() => setContentType("movie")}
+          >
             Movies
           </Link>
-          <Link to={"/"} className="hover:underline">
+          <Link
+            to={"/"}
+            className="hover:underline"
+            onClick={() => setContentType("tv")}
+          >
             Tv Shows
           </Link>
           <Link to={"/history"} className="hover:underline">
@@ -58,39 +73,36 @@ const Navbar = () => {
 
       {/* mobile navbar items */}
       <div
-        className={`absolute mt-5 space-y-8 transition-all duration-500 ease-in-out sm:hidden ${isMobileMenuOpen ? "top-14" : "top-[-490px]"}`}
+        className={`absolute z-30 mt-5 transition-all duration-500 ease-in-out sm:hidden ${isMobileMenuOpen ? "top-14" : "top-[-490px]"}`}
       >
-        <Link to={"/"} className="block p-2" onClick={toggleMobileMenu}>
+        {/* <Link to={"/"} className="block p-2" onClick={toggleMobileMenu}>
           <span className="relative inline-block hover:underline">
             <span className="relative z-40 text-white">Movies</span>
             <span className="absolute inset-0 flex items-center justify-center">
               <span className="absolute size-11 bg-red-300 opacity-70 blur-lg"></span>
             </span>
           </span>
+        </Link> */}
+        <Link
+          to={"/"}
+          className="block p-2 hover:underline"
+          onClick={() => mobileClickFunc("movie")}
+        >
+          Movies
         </Link>
         <Link
           to={"/"}
           className="block p-2 hover:underline"
-          onClick={toggleMobileMenu}
+          onClick={() => mobileClickFunc("tv")}
         >
-          <span className="relative inline-block hover:underline">
-            <span className="relative z-40 text-white"> Tv Shows</span>
-            <span className="absolute inset-0 flex items-center justify-center">
-              <span className="absolute size-11 bg-red-300 opacity-70 blur-lg"></span>
-            </span>
-          </span>
+          Tv Shows
         </Link>
         <Link
-          to={"/history"}
+          to={"/"}
           className="block p-2 hover:underline"
-          onClick={toggleMobileMenu}
+          onClick={() => mobileClickFunc()}
         >
-          <span className="relative inline-block hover:underline">
-            <span className="relative z-40 text-white">Search History</span>
-            <span className="absolute inset-0 flex items-center justify-center">
-              <span className="absolute size-11 bg-red-300 opacity-75 blur-xl"></span>
-            </span>
-          </span>
+          Search History
         </Link>
       </div>
     </header>
