@@ -17,12 +17,7 @@ const SignUp = () => {
   };
 
   return (
-    <div
-      className="h-screen"
-      style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.1)), url('/hero.png')`,
-      }}
-    >
+    <div className="hero-bg h-screen">
       <header className="mx-auto flex max-w-6xl items-center justify-between p-4">
         <Link to={"/"}>
           <img src="/netflix-logo.png" alt="logo" className="w-52" />
