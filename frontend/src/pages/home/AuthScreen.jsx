@@ -12,7 +12,11 @@ const AuthScreen = () => {
   };
 
   return (
-    <div className="hero-bg">
+    <div
+      style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.1)), url('/hero.png')`,
+      }}
+    >
       {/* Navbar */}
       <header className="mx-auto flex max-w-6xl items-center justify-between p-4 pb-10">
         <img

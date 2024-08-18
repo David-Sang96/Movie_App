@@ -29,7 +29,6 @@ const SearchHistoryPage = () => {
       setSearchHistory((prev) => prev.filter((item) => item.id !== id));
       toast.success(response.data.message);
     } catch (error) {
-      console.log(error.message);
       toast.error("Failed to delete search item");
     }
   };
