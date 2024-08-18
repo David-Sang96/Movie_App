@@ -73,7 +73,7 @@ const Navbar = () => {
 
       {/* mobile navbar items */}
       <div
-        className={`absolute z-30 mt-5 transition-all duration-500 ease-in-out sm:hidden ${isMobileMenuOpen ? "top-14" : "top-[-490px]"}`}
+        className={`absolute z-30 mt-5 transition-all duration-500 ease-in-out sm:hidden ${isMobileMenuOpen ? "top-14" : "top-[-490px]"} flex w-full flex-col gap-2`}
       >
         {/* <Link to={"/"} className="block p-2" onClick={toggleMobileMenu}>
           <span className="relative inline-block hover:underline">
@@ -85,21 +85,21 @@ const Navbar = () => {
         </Link> */}
         <Link
           to={"/"}
-          className="block p-2 hover:underline"
+          className="w-max rounded-lg bg-white/60 p-2 font-bold text-black backdrop-blur-lg hover:underline"
           onClick={() => mobileClickFunc("movie")}
         >
           Movies
         </Link>
         <Link
           to={"/"}
-          className="block p-2 hover:underline"
+          className="w-max rounded-lg bg-white/60 p-2 font-bold text-black backdrop-blur-lg hover:underline"
           onClick={() => mobileClickFunc("tv")}
         >
           Tv Shows
         </Link>
         <Link
-          to={"/"}
-          className="block p-2 hover:underline"
+          to={"/history"}
+          className="w-max rounded-lg bg-white/60 p-2 font-bold text-black backdrop-blur-lg hover:underline"
           onClick={() => mobileClickFunc()}
         >
           Search History

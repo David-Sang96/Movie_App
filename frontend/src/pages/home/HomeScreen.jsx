@@ -29,7 +29,6 @@ const HomeScreen = () => {
     <>
       <div className="relative h-screen text-white">
         <Navbar />
-        {/* optimization hack for images */}
         {imgLoading && (
           <div className="shimmer absolute left-0 top-0 -z-50 flex size-full items-center justify-center bg-black/70" />
         )}

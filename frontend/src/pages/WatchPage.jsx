@@ -203,7 +203,7 @@ const WatchPage = () => {
                 Similar Movies/TV Shows
               </h3>
               <div
-                className="scrollbar-hide flex gap-4 overflow-x-scroll pb-4"
+                className="flex gap-4 overflow-x-scroll pb-4 scrollbar-hide"
                 ref={sliderRef}
               >
                 {similarContent.map((content) => {
@@ -227,13 +227,13 @@ const WatchPage = () => {
                 })}
               </div>
               <button
-                className="absolute left-2 top-44 rounded-full bg-red-600 bg-opacity-70 p-2 opacity-0 transition-all duration-300 group-hover:opacity-100"
+                className="absolute left-2 top-44 rounded-full bg-red-600 bg-opacity-70 p-2 transition-all duration-300 md:opacity-0 md:group-hover:opacity-100"
                 onClick={scrollLeft}
               >
                 <ChevronLeft size={24} />
               </button>
               <button
-                className="absolute right-2 top-44 rounded-full bg-red-600 bg-opacity-70 p-2 opacity-0 transition-all duration-300 group-hover:opacity-100"
+                className="absolute right-2 top-44 rounded-full bg-red-600 bg-opacity-70 p-2 transition-all duration-300 md:opacity-0 md:group-hover:opacity-100"
                 onClick={scrollRight}
               >
                 <ChevronRight size={24} />

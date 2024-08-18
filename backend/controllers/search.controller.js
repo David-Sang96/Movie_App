@@ -11,25 +11,34 @@ export const searchByCategories = (type) => async (req, res) => {
       return res.status(404).send(null);
     }
 
-    const image =
-      type === "tv" || type === "movie"
-        ? response.results[0].poster_path
-        : response.results[0].profile_path;
+    const user = await User.findById(req.user._id).select("searchHistory");
+    const resultId = response.results[0].id;
 
-    const title =
-      type === "movie" ? response.results[0].title : response.results[0].name;
+    const isAlreadyInHistory = user.searchHistory.some(
+      (historyItem) => historyItem.id === resultId
+    );
 
-    await User.findByIdAndUpdate(req.user._id, {
-      $push: {
-        searchHistory: {
-          id: response.results[0].id,
-          image,
-          title,
-          searchType: type,
-          createdAt: new Date(),
+    if (!isAlreadyInHistory) {
+      const image =
+        type === "tv" || type === "movie"
+          ? response.results[0].poster_path
+          : response.results[0].profile_path;
+
+      const title =
+        type === "movie" ? response.results[0].title : response.results[0].name;
+
+      await User.findByIdAndUpdate(req.user._id, {
+        $push: {
+          searchHistory: {
+            id: response.results[0].id,
+            image,
+            title,
+            searchType: type,
+            createdAt: new Date(),
+          },
         },
-      },
-    });
+      });
+    }
 
     res.json({ success: true, content: response.results });
   } catch (error) {

@@ -43,12 +43,12 @@ const MovieSlider = ({ category }) => {
   };
 
   return (
-    <div className="group relative bg-black px-5 text-white md:px-20">
+    <div className="group relative px-5 text-white md:px-20">
       <h2 className="mb-4 text-2xl font-bold">
         {formattedCategoryName} {formattedContentType}
       </h2>
       <div
-        className="scrollbar-hide flex space-x-4 overflow-x-scroll"
+        className="flex space-x-4 overflow-x-scroll scrollbar-hide"
         ref={sliderRef}
       >
         {content.map((item) => (
@@ -70,13 +70,13 @@ const MovieSlider = ({ category }) => {
       </div>
 
       <button
-        className="ease-in-ou absolute left-5 top-24 rounded-full bg-black bg-opacity-50 p-3 opacity-0 transition-all duration-300 hover:bg-opacity-75 group-hover:opacity-100 md:left-24"
+        className="absolute left-5 top-24 rounded-full bg-black bg-opacity-50 p-3 transition-all duration-300 ease-in-out group-hover:opacity-100 md:left-24 md:opacity-0 md:hover:bg-opacity-75"
         onClick={scrollLeft}
       >
         <ChevronLeft size={24} />
       </button>
       <button
-        className="ease-in-ou absolute right-5 top-24 rounded-full bg-black bg-opacity-50 p-3 opacity-0 transition-all duration-300 hover:bg-opacity-75 group-hover:opacity-100 md:right-24"
+        className="absolute right-5 top-24 rounded-full bg-black bg-opacity-50 p-3 transition-all duration-300 ease-in-out group-hover:opacity-100 md:right-24 md:opacity-0 md:hover:bg-opacity-75"
         onClick={scrollRight}
       >
         <ChevronRight size={24} />
