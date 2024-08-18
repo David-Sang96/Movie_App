@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+import { Loader } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/authUser";
@@ -6,7 +7,7 @@ import { useAuthStore } from "../store/authUser";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { logIn } = useAuthStore();
+  const { logIn, isLoggingIn } = useAuthStore();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -63,8 +64,16 @@ const Login = () => {
             <button
               className="w-full rounded-md bg-red-600 py-2 font-semibold text-white hover:bg-red-700"
               type="submit"
+              disabled={isLoggingIn}
             >
-              LogIn
+              {isLoggingIn ? (
+                <div className="flex items-center justify-center gap-2">
+                  <Loader className="size-6 animate-spin" />
+                  Logging in...
+                </div>
+              ) : (
+                "Log in"
+              )}
             </button>
           </form>
           <div className="text-center text-gray-400">

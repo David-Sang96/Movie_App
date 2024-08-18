@@ -1,3 +1,4 @@
+import { Loader } from "lucide-react";
 import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useAuthStore } from "../store/authUser";
@@ -9,7 +10,7 @@ const SignUp = () => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
-  const { signUp } = useAuthStore();
+  const { signUp, isSigningUp } = useAuthStore();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -83,8 +84,16 @@ const SignUp = () => {
             <button
               className="w-full rounded-md bg-red-600 py-2 font-semibold text-white hover:bg-red-700"
               type="submit"
+              disabled={isSigningUp}
             >
-              Sign Up
+              {isSigningUp ? (
+                <div className="flex items-center justify-center gap-2">
+                  <Loader className="size-6 animate-spin" />
+                  Signing up...
+                </div>
+              ) : (
+                "Sign Up"
+              )}
             </button>
           </form>
           <div className="text-center text-gray-400">
